@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  check_in_at: 2016-06-26
+  check_out_at: 2016-06-26
+  status: MyString
+  comment: MyText
+  user: one
+  room: one
+
+two:
+  check_in_at: 2016-06-26
+  check_out_at: 2016-06-26
+  status: MyString
+  comment: MyText
+  user: two
+  room: two

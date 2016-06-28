@@ -1,0 +1,82 @@
+#################################
+DB Design
+#################################
+
+Models & Associations
+User
+  email, contact_no
+
+  has many Booking
+  has many Room through Booking
+
+  has many BookingArchive
+  has many Room through BookingArchive
+
+Room
+  name, description
+
+  belongs to Category
+
+  has many Booking
+  has many User, through: Booking
+
+  has many BookingArchive
+  has many User, through: BookingArchive
+
+Category
+  name, rate, description
+
+  has many Room
+
+Booking
+  check_in_at, check_out_at, status, comment
+
+  belongs to User
+  belongs to Room
+
+BookingArchive
+  belongs to User
+  belongs to Room
+
+########
+Creating Bookings up to 6 months from today,maximum possible booking.
+Run below code in rails console
+########
+
+total Rooms = 60
+max total days booking for each room = 180 days
+max bookings = 11xxx
+
+user = User.first
+Room.all.map do |room|
+  # category = room.category
+  today = Date.today
+  while today <= (Date.today + 6.months)
+    Booking.create! status: 'booked', check_in_at: today, check_out_at: today, user: user, room: room
+    #, category: category,
+    today = today.next
+  end
+end
+
+
+
+######################################
+Assignment :
+######################################
+
+A hotel has rooms in the following category. 
+
+20 - Deluxe Rooms - Queen Size Bed   (Rs 7000/night) 
+      Rooms: (A 01 - 05)  B( 01 - 05)  C(01 - 05)  D(01 -05)
+20 - Luxury Rooms - Queen Size Bed and Pool Facing (Rs 8500/night)
+      Rooms: A(06 - 10) B(06 -10) C(06 - 10) D (06 - 10)
+12 - Luxury Suites - King Size Bed and Pool Facing (Rs 12000/night)
+       Rooms: D (11 - 20)  E (01 - 02)
+8 - Presidential Suites - King Size Bed, Pool Facing with a Gym (Rs 20000/night)
+    E (03 - 10)
+
+The hotel allows booking up to 6 months in advance for room reservations and needs an easy way for the user to book room if a particular category of room is available for a given date range.
+
+Write an api which shows availability of room by passing booking date and or room type.  Second if user is registered he can see his booked room and booking information
+
+Your code needs to be efficient in querying. Make suitable assumptions where needed. Comment your code to highlight the design decisions.

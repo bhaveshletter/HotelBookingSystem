@@ -1,0 +1,76 @@
+I) Booking not included time only date.
+
+II) Booking Date is considered as server time zone
+
+III) Pagination, order & grouping not incuded !
+
+IV) Test cases are not written. SHOULD BE THERE!
+
+###############################################
+endpoints details
+###############################################
+Response of all enpoints is { success: true/false, message: 'xxxx', code: http_code, data: [resource] } common
+
+i) Master data uncluding 1 admin & normal users are created, check /db/seeds.rb for more detail.
+
+ii) header 'Content-Type' should be 'application/json'.
+
+iii) header should have 'Authorization' key with current user's 'auth_token' for to create/update booking status.
+
+v) admin user can't do booking but update status of booking.
+
+
+1) GET http://localhost:3000/users
+  Returns all users, no authentication require
+
+2) POST http://localhost:3000/users
+   Create & returns new user, See iii)
+
+   payload
+   {
+     "user": {
+       "email": "user2@example.com",
+       "password": "123456",
+       "password_confirmation": "123456"
+     }
+   }
+
+3) POST http://localhost:3000/sessions
+   Returns current user, user auth_token with header's Authorization
+
+   payload
+   {
+     "session": {
+       "email": "user2@example.com",
+       "password": "123456"
+     }
+   }
+
+4) GET http://localhost:3000/search?check_in_at=2016-06-26&check_out_at=2016-06-26&category_id=4
+  Return available rooms with its category
+
+5) GET http://localhost:3000/users/:user_id/bookings
+   Returns current user's booking(s). all bookings if admin
+
+6) POST: http://localhost:3000/users/:user_id/bookings
+   Create and returns current user's booking.
+
+   payload
+   {
+     "booking": {
+       "check_in_at": "2016-12-21",
+       "check_out_at": "2016-12-21",
+       "room_id": 1
+     }
+   }
+
+7) PUT: http://localhost:3000/users/:user_id/bookings/:id
+   Update status and returns. Move to booking_archieves table then delete same from bookings table if updated staus is 'checkedout' or 'cancelled'
+
+   payload
+   {
+    "booking": {
+        "status": "cancelled"
+    }
+   }
+
