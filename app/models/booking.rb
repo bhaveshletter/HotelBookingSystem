@@ -20,7 +20,6 @@ class Booking < ApplicationRecord
   # Methods
   protected  
   def check_in_out_date_validation
-    p '++++++++++++++++++++++++++++++++++++++'
     status = Booking.validate_booking_range check_in_at, check_out_at
     unless status.nil?
       errors.add(:base, status)
@@ -28,6 +27,7 @@ class Booking < ApplicationRecord
   end
 
   # check check in and check out date is in range of up to 6 months, greater than each other, etc
+  # TODO: use scope since its give always today date
   def self.validate_booking_range check_in_at, check_out_at
     if check_in_at && check_out_at
       if check_in_at > check_out_at

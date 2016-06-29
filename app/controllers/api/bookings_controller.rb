@@ -1,4 +1,4 @@
-class Api::BookingsController < ApplicationController
+class Api::BookingsController < Api::ApplicationController
   before_action :authenticate_with_token!
 
   def index

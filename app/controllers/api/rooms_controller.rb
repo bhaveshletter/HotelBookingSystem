@@ -1,4 +1,4 @@
-class Api::RoomsController < ApplicationController
+class Api::RoomsController < Api::ApplicationController
   before_action :validate_params, only: [:search]
 
   def search
